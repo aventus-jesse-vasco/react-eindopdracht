@@ -1,54 +1,42 @@
-'use client';
+"use client";
 
-import { useRouter, useSearchParams } from 'next/navigation';
-import { useState, useTransition } from 'react';
+import { useEffect, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-export default function SearchBar({ initialQuery = '' }: { initialQuery?: string }) {
+export function SearchBar() {
   const router = useRouter();
+  const pathname = usePathname();
   const searchParams = useSearchParams();
-  const [query, setQuery] = useState(initialQuery);
-  const [isPending, startTransition] = useTransition();
 
-  const handleSearch = (value: string) => {
-    setQuery(value);
-    
-    startTransition(() => {
-      if (value.trim()) {
-        router.push(`/spots?q=${encodeURIComponent(value.trim())}`);
-      } else {
-        router.push('/spots');
-      }
-    });
-  };
+  const [value, setValue] = useState(searchParams.get("q") ?? "");
+
+  useEffect(() => {
+    const t = setTimeout(() => {
+      const params = new URLSearchParams(searchParams.toString());
+      const q = value.trim();
+      if (q) params.set("q", q);
+      else params.delete("q");
+
+      const qs = params.toString();
+      router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
+    }, 250);
+
+    return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value, pathname, router]);
 
   return (
-    <div className="relative">
+    <div className="rounded-2xl border border-white/10 bg-white/5 p-4 ring-1 ring-white/10">
+      <label className="block text-xs font-semibold uppercase tracking-[0.18em] text-white/70">
+        Zoek op naam of locatie
+      </label>
       <input
-        type="text"
-        value={query}
-        onChange={(e) => handleSearch(e.target.value)}
-        placeholder="Zoek op naam of locatie..."
-        className="w-full px-6 py-4 text-lg border-2 border-gray-300 rounded-full focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-200 transition-all duration-300 shadow-md"
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        placeholder="bijv. Rotterdam, tacos..."
+        className="mt-2 w-full rounded-xl border border-white/10 bg-black/30 px-4 py-3 text-sm text-white placeholder:text-white/40 outline-none ring-0 transition focus:border-white/20 focus:bg-black/40"
       />
-      <div className="absolute right-6 top-1/2 transform -translate-y-1/2">
-        {isPending ? (
-          <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-orange-500"></div>
-        ) : (
-          <svg
-            className="w-6 h-6 text-gray-400"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-            />
-          </svg>
-        )}
-      </div>
     </div>
   );
 }
+

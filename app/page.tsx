@@ -1,89 +1,63 @@
-import Link from 'next/link';
+import Link from "next/link";
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className="min-h-[calc(100vh-4rem)]">
-      {/* Hero Section */}
-      <section className="bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 text-white">
-        <div className="container mx-auto px-4 py-24 md:py-32">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-fade-in">
-              🍔 StreetfoodSpotter
-            </h1>
-            <p className="text-xl md:text-2xl mb-8 text-white/90">
-              Ontdek de beste streetfood spots in Nederland
-            </p>
-            <p className="text-lg md:text-xl mb-12 text-white/80 max-w-2xl mx-auto">
-              Van heerlijke burgers tot authentieke sushi, van vegan delights tot zoete desserts - 
-              vind jouw perfecte streetfood ervaring dichtbij!
-            </p>
-            <Link 
-              href="/spots"
-              className="inline-block bg-white text-orange-600 font-bold text-lg px-8 py-4 rounded-full shadow-lg hover:scale-105 hover:shadow-xl transition-all duration-300 transform"
-            >
-              Bekijk Spots →
-            </Link>
-          </div>
-        </div>
-      </section>
+    <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-8 ring-1 ring-white/10 sm:p-12">
+      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.16),transparent_50%)]" />
 
-      {/* Features Section */}
-      <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-800">
-            Waarom StreetfoodSpotter?
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
-              <div className="text-4xl mb-4">🔍</div>
-              <h3 className="text-xl font-bold mb-2 text-gray-800">Gemakkelijk Zoeken</h3>
-              <p className="text-gray-600">
-                Vind snel je favoriete streetfood spots op basis van naam of locatie
-              </p>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
-              <div className="text-4xl mb-4">📍</div>
-              <h3 className="text-xl font-bold mb-2 text-gray-800">Alle Locaties</h3>
-              <p className="text-gray-600">
-                Ontdek spots in heel Nederland, van Amsterdam tot Eindhoven
-              </p>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
-              <div className="text-4xl mb-4">➕</div>
-              <h3 className="text-xl font-bold mb-2 text-gray-800">Voeg Toe</h3>
-              <p className="text-gray-600">
-                Ken je een geweldige spot? Voeg hem toe en deel met anderen!
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <div className="max-w-2xl">
+        <p className="text-xs font-semibold uppercase tracking-[0.25em] text-white/70">
+          StreetfoodSpotter
+        </p>
+        <h1 className="mt-4 text-balance text-4xl font-extrabold leading-tight sm:text-5xl">
+          Vind de beste streetfoodspots in jouw stad.
+        </h1>
+        <p className="mt-4 text-pretty text-base text-white/80 sm:text-lg">
+          Bekijk spots in een overzicht, zoek op naam of locatie, open TikTok
+          previews of Google Maps, en voeg je eigen favorieten toe.
+        </p>
 
-      {/* Call to Action */}
-      <section className="py-16 bg-gradient-to-r from-orange-500 to-red-500 text-white">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            Klaar om te ontdekken?
-          </h2>
-          <p className="text-xl mb-8 text-white/90">
-            Begin nu met het verkennen van de beste streetfood spots!
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link 
-              href="/spots"
-              className="inline-block bg-white text-orange-600 font-bold text-lg px-8 py-3 rounded-full shadow-lg hover:scale-105 transition-all duration-300"
-            >
-              Browse Spots
-            </Link>
-            <Link 
-              href="/add-spot"
-              className="inline-block bg-orange-800 text-white font-bold text-lg px-8 py-3 rounded-full shadow-lg hover:scale-105 transition-all duration-300"
-            >
-              Spot Toevoegen
-            </Link>
-          </div>
+        <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+          <Link
+            href="/spots"
+            className="inline-flex items-center justify-center rounded-xl bg-white px-5 py-3 text-sm font-semibold text-black shadow-sm transition-transform duration-200 hover:scale-[1.02] active:scale-[0.98]"
+          >
+            Bekijk spots
+          </Link>
+          <Link
+            href="/add-spot"
+            className="inline-flex items-center justify-center rounded-xl border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-white/90 backdrop-blur transition-colors hover:bg-white/10"
+          >
+            Voeg een spot toe
+          </Link>
         </div>
-      </section>
+      </div>
+
+      <div className="mt-10 grid gap-4 sm:grid-cols-3">
+        {[
+          {
+            title: "Zoek slim",
+            body: "Filter direct op naam of locatie."
+          },
+          {
+            title: "Bekijk media",
+            body: "TikTok preview of Maps-link per spot."
+          },
+          {
+            title: "Voeg toe",
+            body: "Maak je eigen lijst met nieuwe spots."
+          }
+        ].map((card) => (
+          <div
+            key={card.title}
+            className="rounded-2xl border border-white/10 bg-black/20 p-4"
+          >
+            <div className="text-sm font-semibold">{card.title}</div>
+            <div className="mt-1 text-sm text-white/70">{card.body}</div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
+

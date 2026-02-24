@@ -1,27 +1,17 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html,
+body {
+  height: 100%;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  background: radial-gradient(1200px 800px at 20% 10%, rgba(255, 230, 200, 0.9), transparent 60%),
+    radial-gradient(1000px 700px at 80% 20%, rgba(210, 240, 255, 0.9), transparent 55%),
+    linear-gradient(180deg, #070a12, #0b1222);
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-}
