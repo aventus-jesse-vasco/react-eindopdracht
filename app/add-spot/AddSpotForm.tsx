@@ -1,6 +1,7 @@
 "use client";
 
-import { useFormState, useFormStatus } from "react-dom";
+import { useActionState } from "react";
+import { useFormStatus } from "react-dom";
 import { addSpotAction, type AddSpotState } from "./actions";
 
 const initialState: AddSpotState = { ok: true };
@@ -26,7 +27,7 @@ function SubmitButton() {
 }
 
 export function AddSpotForm() {
-  const [state, formAction] = useFormState(addSpotAction, initialState);
+  const [state, formAction] = useActionState(addSpotAction, initialState);
 
   return (
     <form action={formAction} className="space-y-5">

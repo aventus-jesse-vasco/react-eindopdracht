@@ -19,12 +19,12 @@ function GridFallback() {
   );
 }
 
-export default function SpotsPage({
+export default async function SpotsPage({
   searchParams
 }: {
-  searchParams?: { q?: string };
+  searchParams?: Promise<{ q?: string }>;
 }) {
-  const q = searchParams?.q ?? "";
+  const q = (await searchParams)?.q ?? "";
 
   return (
     <div className="space-y-6">

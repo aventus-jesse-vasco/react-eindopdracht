@@ -113,10 +113,14 @@ export function listSpots(opts: { q?: string | null }) {
       .all() as Spot[];
   }
 
-  const like = `%${q}%`;
+  const escaped = q.replace(/[\\%_]/g, (c) => `\\${c}`);
+  const like = `%${escaped.toLowerCase()}%`;
   return db
     .prepare(
-      "SELECT * FROM spots WHERE naam LIKE ? OR locatie LIKE ? ORDER BY id DESC"
+      `SELECT * FROM spots
+       WHERE LOWER(naam)    LIKE ? ESCAPE '\\'
+          OR LOWER(locatie) LIKE ? ESCAPE '\\'
+       ORDER BY id DESC`
     )
     .all(like, like) as Spot[];
 }

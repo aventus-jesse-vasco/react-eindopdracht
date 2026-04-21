@@ -5,12 +5,13 @@ import { extractVideoId } from "../../../lib/tiktok";
 
 export const runtime = "nodejs";
 
-export default function SpotDetailPage({
+export default async function SpotDetailPage({
   params
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  const spotId = Number(params.id);
+  const { id } = await params;
+  const spotId = Number(id);
   if (!Number.isFinite(spotId)) notFound();
 
   const spot = getSpotById(spotId);
